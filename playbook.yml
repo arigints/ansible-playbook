@@ -28,7 +28,7 @@
 
     - name: web content is in place
       copy:
-        content: "Adinusa quiz Playbook - arigints"
+        content: "Hello world from Ari Ginting"
         dest: /var/www/html/index.php
 
 - name: Verify the web server is accessible
