@@ -1,0 +1,41 @@
+- name: Quiz Playbook
+  hosts: servers
+  become: true
+  tasks:
+    - name: apache2 package is present
+      apt: name=apache2 state=latest
+
+    - name: mariadb-server package is present
+      apt: name=mariadb-server state=latest
+
+    - name: php package is present
+      apt: name=php state=latest
+
+    - name: php-mysql is present
+      apt: name=php-mysql state=latest
+
+    - name: apache2 is started
+      service:
+        name: apache2
+        state: started
+        enabled: true
+
+    - name: mariadb-server is started
+      service:
+        name: mariadb.service
+        state: started
+        enabled: true
+
+    - name: web content is in place
+      copy:
+        content: "Adinusa quiz Playbook - arigints"
+        dest: /var/www/html/index.php
+
+- name: Verify the web server is accessible
+  hosts: localhost
+  tasks:
+    - name: testing web server
+      uri:
+        url: http://pod-arigints-managed2
+        status_code: 200
+        return_content: yes
